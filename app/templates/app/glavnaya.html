@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Шифрование фото</title>
+    <!--<link rel="stylesheet" type="text/css" href="styles.css">-->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            background-image: url(https://w.forfun.com/fetch/e1/e1bda927816815e459d6ca00ffa3770e.jpeg?w=1470&r=0.5625);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        form {
+            margin: 50px auto;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            opacity: 0.9;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        input[type="file"],
+        input[type="text"],
+        select {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0069d9;
+        }
+
+        #result {
+            text-align: center;
+        }
+
+        #encrypted-photo {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+        }
+
+        #download-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        #download-link:hover {
+            background-color: #0069d9;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0.5;
+        }
+    </style>
+    <!--<script src="script.js"></script>-->
+</head>
+<body>
+    {% load static %}
+    <!--<header>
+        <h1>Шифрование картинки</h1>
+    </header>-->
+
+    <form id="upload" enctype="multipart/form-data" method="post" action="{% url 'rabotaem' %}">
+        {% csrf_token %}
+        <!--<h2>Загрузите фотографию</h2>-->
+        <label for="photo-upload">Загрузите картинку:</label>
+        <input type="file" id="photo-upload" name="photo-upload" accept="image/*" required>
+        <label for="encryption-key">Ключ шифрования (5 русских букв):</label>
+        <input type="text" id="encryption-key" name="encryption-key">
+        <label for="Salt">Инициализирующий вектор (число):</label>
+        <input type="text" id="Salt" name="Salt">
+        <label for="encryption-mode">Режим шифрования:</label>
+        <select id="encryption-mode" name="encryption-mode" required>
+            <option value="ECB">ECB</option>
+            <option value="CBC">CBC</option>
+        </select>
+        <label for="vibor">Режим шифрования:</label>
+        <select id="vibor" name="vibor" required>
+            <option value="shifr">Шифровать</option>
+            <option value="deshifr">Расшифровать</option>
+        </select>
+        <button type="submit" class="button">Выполнить</button>
+    </form>
+
+    <footer>
+        <p> &copy; VIGILO CONFIDO!  </p>
+    </footer>
+    <!--<script>
+        function encryptPhoto() {
+            const inputFile = document.getElementById("photo-upload");
+            const encryptedPhoto = document.getElementById("encrypted-photo");
+            const downloadLink = document.getElementById("download-link");
+            const encryptionKey = document.getElementById("encryption-key").value;
+            const encryptionMode = document.getElementById("encryption-mode").value;
+
+            const file = inputFile.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const imgData = e.target.result;
+
+                // Perform encryption here using the selected encryption key and mode
+
+                encryptedPhoto.src = imgData;
+                downloadLink.href = imgData;
+                document.getElementById("result").style.display = "block";
+                downloadLink.style.display = "inline";
+            }
+
+            reader.readAsDataURL(file);
+        }
+        function decryptPhoto() {
+            const inputFile = document.getElementById("photo-upload");
+            const photoPreview = document.getElementById("photo-preview");
+            const decryptedPhoto = document.getElementById("decrypted-photo");
+            const downloadLink = document.getElementById("download-link");
+            const encryptionKey = document.getElementById("encryption-key").value;
+            const encryptionMode = document.getElementById("encryption-mode").value;
+
+            const file = inputFile.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const imgData = e.target.result;
+                photoPreview.src = imgData;
+                photoPreview.style.display = "block";
+
+                // Perform decryption here using the selected encryption key and mode
+
+                decryptedPhoto.src = imgData;
+                decryptedPhoto.style.display = "block";
+                downloadLink.href = imgData;
+                document.getElementById("result").style.display = "block";
+                downloadLink.style.display = "inline";
+            }
+
+            reader.readAsDataURL(file);
+        }
+    </script>-->
+</body>
+</html>
